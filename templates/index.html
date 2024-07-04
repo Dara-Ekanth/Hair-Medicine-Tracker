@@ -1,15 +1,30 @@
-{% extends 'base.html' %}
+<!-- index.html -->
+{% extends "base.html" %}
+
+{% block title %}Home - Medicine Tracker{% endblock %}
 
 {% block content %}
 <h1>Medicine Tracker</h1>
-<form action="{{ url_for('add') }}" method="POST">
-    <input type="text" name="name" placeholder="Enter medicine name" required>
-    <button type="submit">Add Medicine</button>
-</form>
-<h2>Medicines Taken</h2>
-<ul>
-    {% for medicine in medicines %}
-    <li>{{ medicine.name }} - {{ medicine.date_taken.strftime('%Y-%m-%d %H:%M:%S') }}</li>
-    {% endfor %}
-</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Date Taken</th>
+            <th>Tablet Color</th>
+            <th>Liquid Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for medicine in medicines %}
+            <tr>
+                <td>{{ medicine.date_taken.strftime('%Y-%m-%d') }}</td>
+                <td>{{ medicine.tablet_color }}</td>
+                <td>{{ medicine.liquid_color }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No medicines taken yet.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

@@ -1,9 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+# app.py
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from flask_bcrypt import Bcrypt
-from flask_migrate import Migrate
 from datetime import datetime
+from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with your own secret key
@@ -15,26 +16,46 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 migrate = Migrate(app, db)
 
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+    medicines = db.relationship('Medicine', backref='user', lazy=True)
+
+class Medicine(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tablet_color = db.Column(db.String(10), nullable=False)
+    liquid_color = db.Column(db.String(10), nullable=False)
+    date_taken = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), nullable=False, unique=True)
-    password = db.Column(db.String(150), nullable=False)
-
-class Medicine(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    date_taken = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+@app.route('/add_medicine', methods=['GET', 'POST'])
+@login_required
+def add_medicine():
+    if request.method == 'POST':
+        tablet_color = request.form.get('tablet_color')
+        liquid_color = request.form.get('liquid_color')
+        if not tablet_color or not liquid_color:
+            flash('Both tablet and liquid colors are required!')
+            return redirect(url_for('add_medicine'))
+        
+        new_medicine = Medicine(tablet_color=tablet_color, liquid_color=liquid_color, user_id=current_user.id)
+        db.session.add(new_medicine)
+        db.session.commit()
+        flash('Medicine added successfully!')
+        return redirect(url_for('index'))
+    return render_template('add_medicine.html')
 
 @app.route('/')
 @login_required
 def index():
     medicines = Medicine.query.filter_by(user_id=current_user.id).all()
     return render_template('index.html', medicines=medicines)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

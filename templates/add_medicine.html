@@ -1,0 +1,31 @@
+<!-- add_medicine.html -->
+<link rel="stylesheet" href="{{ url_for('static', filename='add-medicine.css') }}">
+{% extends "base.html" %}
+
+
+{% block title %}Add Medicine - Medicine Tracker{% endblock %}
+
+{% block content %}
+<h1>Add Medicine</h1>
+
+<form class="form-inline" method="POST" action="{{ url_for('add_medicine') }}">
+    <div class="form-group">
+        <label for="tablet_color">Tablet Color:</label>
+        <select name="tablet_color" id="tablet_color" required>
+            <option value="orange">Orange</option>
+            <option value="pink">Pink</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="tablet_color">Liquid Color:</label>
+        <select name="liquid_color" id="liquid_color" required>
+            <option value="white">White</option>
+            <option value="blue">Blue</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button id="add_medicine" type="submit">Add Medicine</button>
+    </div>
+  </form>
+<a href="{{ url_for('index') }}">Back to Home</a>
+{% endblock %}

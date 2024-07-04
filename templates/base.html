@@ -1,30 +1,58 @@
-<!doctype html>
+<!-- base.html -->
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Medicine Tracker{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Medicine Tracker</title>
 </head>
+
 <body>
+    <header>
+        <nav>
+            {% if current_user.is_authenticated %}
+            <div class="nav-container">
+                <div class="nav-username">Welcome, {{ current_user.username|capitalize}}</div>
+            <div class="nav-list">
+                <ul>
+                    <li style="border-bottom: none;">
+                        <a class="float_right" href="{{ url_for('index') }}"> Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li style="border-bottom: none;">
+                        <a class="float_right" href="{{ url_for('add_medicine') }}">Add Medicine </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li style="border-bottom: none;">
+                        <a class="float_right" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+    
+            {% else %}
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
     <div class="container">
-        {% if current_user.is_authenticated %}
-            <div style="text-align: center; margin-bottom: 20px;">
-                <a href="{{ url_for('logout') }}">Logout</a>
-            </div>
-        {% else %}
-            <div style="text-align: center; margin-bottom: 20px;">
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
-            </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
-        {% for message in get_flashed_messages(category_filter=['success']) %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-        {% for message in get_flashed_messages(category_filter=['danger']) %}
-            <div class="alert alert-danger">{{ message }}</div>
-        {% endfor %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </div>
 </body>
+
 </html>

@@ -1,0 +1,29 @@
+label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 20px;
+    margin-top: 0px !important;
+  }
+
+  select {
+    display: inline-block;
+    width: 150px;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-left: 20px;
+    margin-bottom: 0px !important;
+  }
+
+.form-group{
+    display: flex;
+    align-items: center;
+    margin: 0px 0px 10px 0px !important;
+    justify-content: center;
+}
+
+.form-inline{
+    display: flex;
+    flex-direction: column;
+}
+
