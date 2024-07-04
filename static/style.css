@@ -1,31 +1,90 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
+
 .container {
     width: 80%;
-    margin: 0 auto;
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
-h1 {
+
+h1, h2 {
     text-align: center;
+    color: #333;
 }
+
 form {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
+
 form input {
     width: 300px;
     padding: 10px;
     margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
+
 form button {
-    padding: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
 }
+
+form button:hover {
+    background-color: #218838;
+}
+
 ul {
     list-style-type: none;
     padding: 0;
 }
+
 li {
     padding: 10px;
     border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    margin: 0 5px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }

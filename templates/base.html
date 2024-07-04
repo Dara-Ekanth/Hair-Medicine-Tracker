@@ -8,6 +8,22 @@
 </head>
 <body>
     <div class="container">
+        {% if current_user.is_authenticated %}
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        {% else %}
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            </div>
+        {% endif %}
+        {% for message in get_flashed_messages(category_filter=['success']) %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in get_flashed_messages(category_filter=['danger']) %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
         {% block content %}{% endblock %}
     </div>
 </body>
