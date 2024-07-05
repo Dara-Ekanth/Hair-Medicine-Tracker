@@ -207,7 +207,7 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
-td[colspan="3"] {
+td[colspan="4"] {
     text-align: center;
     font-style: italic;
     color: #999;

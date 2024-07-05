@@ -1,0 +1,51 @@
+<!-- add_medicine.html -->
+<link rel="stylesheet" href="{{ url_for('static', filename='add_medicine.css') }}">
+{% extends "base.html" %}
+
+
+{% block title %}Add Medicine Colors - Medicine Tracker{% endblock %}
+
+{% block content %}
+<h1>Add Colors</h1>
+    <form method="POST" action="{{ url_for('colors') }}">
+        <div class="form-group">
+            <label for="tablet_color">Tablet Color:</label>
+            <input type="text" name="tablet_color" id="tablet_color">
+        </div>
+        <div class="form-group">
+            <button id="add_medicine" type="submit">Add Tablet Color</button>
+        </div>
+      </form>
+      <form method="POST" action="{{ url_for('colors') }}">
+        <div class="form-group">
+            <label for="tablet_color">Liquid Color:</label>
+            <input type="text" name="liquid_color" id="liquid_color">
+        </div>
+        <div class="form-group">
+            <button id="add_medicine" type="submit">Add Liquid Color</button>
+        </div>
+      </form>
+    
+      <table>
+        <thead>
+            <tr>
+                <th>SI No</th>
+                <th>Tablet Colors</th>
+                <th>Liquid Colors</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(size) %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ tablet_colors[i] or 'N/A' }}</td>
+                <td>{{ liquid_colors[i] or 'N/A' }}</td>
+            </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">No medicines colors yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
