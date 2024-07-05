@@ -8,6 +8,7 @@
 {% block content %}
 <h1>Add Colors</h1>
     <form method="POST" action="{{ url_for('colors') }}">
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
         <div class="form-group">
             <label for="tablet_color">Tablet Color:</label>
             <input type="text" name="tablet_color" id="tablet_color">
