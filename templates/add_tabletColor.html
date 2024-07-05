@@ -18,6 +18,7 @@
         </div>
       </form>
       <form method="POST" action="{{ url_for('colors') }}">
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
         <div class="form-group">
             <label for="tablet_color">Liquid Color:</label>
             <input type="text" name="liquid_color" id="liquid_color">
