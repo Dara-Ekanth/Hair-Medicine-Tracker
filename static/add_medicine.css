@@ -22,6 +22,10 @@ label {
     justify-content: center;
 }
 
+.form-group button{
+  margin-left: 10px;
+}
+
 .form-inline{
     display: flex;
     flex-direction: column;
