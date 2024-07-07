@@ -2,10 +2,18 @@
 
 {% block content %}
 <h2>Register</h2>
-<form method="POST" action="{{ url_for('register') }}">
+<form class="container_column" method="POST" action="{{ url_for('register') }}">
     <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Register</button>
+    <div class="child_container_column">
+        <label for="username">User Name:</label>
+        <input type="text" name="username" id="username" placeholder="Username" required>
+    </div>
+    <div class="child_container_column">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+    </div>
+    <div class="child_container_column">
+        <button type="submit">Register</button>
+    </div>
 </form>
 {% endblock %}

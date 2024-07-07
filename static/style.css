@@ -56,15 +56,6 @@ h1, h2 {
     color: #333;
 }
 
-form label {
-    display: block;
-    margin-top: 10px;
-}
-
-form select {
-    margin-bottom: 10px;
-}
-
 button {
     background-color: #333;
     color: #fff;
@@ -113,18 +104,19 @@ h1, h2 {
     color: #333;
 }
 
-form {
+form label{
+    width: 100px;
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    justify-content: right;
+    margin-right: 10px;
 }
 
 form input {
     width: 300px;
     padding: 10px;
-    margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    
 }
 
 form button {
@@ -217,3 +209,14 @@ td[colspan="4"] {
     margin-right: 150px;
 }
 
+.container_column{
+    display: flex;
+    flex-direction: column;
+}
+
+.child_container_column{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 10px;
+}
