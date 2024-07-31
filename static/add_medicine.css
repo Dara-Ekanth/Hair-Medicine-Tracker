@@ -6,13 +6,22 @@ label {
     margin-top: 0px !important;
   }
 
-  select {
+  select{
     display: inline-block;
     width: 150px;
     box-sizing: border-box;
     padding: 5px;
     margin-left: 20px;
     margin-bottom: 0px !important;
+  }
+
+  input{
+  display: inline-block;
+      width: 150px;
+      box-sizing: border-box;
+      padding: 5px;
+      margin-left: 20px;
+      margin-bottom: 0px !important;
   }
 
 .form-group{
@@ -32,6 +41,13 @@ label {
 }
 
 #date_taken {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 150px;
+}
+
+#comments {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

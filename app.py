@@ -30,6 +30,7 @@ class Medicine(db.Model):
     liquid_color = db.Column(db.String(150), nullable=False)
     date_taken = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    comments = db.Column(db.String(500), nullable=True)
 
 class TabletColor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -56,6 +57,7 @@ def add_medicine():
         tablet_color = request.form.get('tablet_color')
         liquid_color = request.form.get('liquid_color')
         date_taken_str = request.form.get('date_taken')
+        comments = request.form.get('comments')
         if not tablet_color or not liquid_color:
             flash('Both tablet and liquid colors are required!')
             return redirect(url_for('add_medicine'))
@@ -65,7 +67,7 @@ def add_medicine():
         except ValueError:
             flash('Invalid date format. Please use YYYY-MM-DD.', 'danger')
             return redirect(url_for('add_medicine'))
-        new_medicine = Medicine(tablet_color=tablet_color, liquid_color=liquid_color,date_taken=date_taken, user_id=current_user.id)
+        new_medicine = Medicine(tablet_color=tablet_color, liquid_color=liquid_color,date_taken=date_taken, user_id=current_user.id, comments=comments)
         db.session.add(new_medicine)
         db.session.commit()
         flash('Medicine added successfully!')
