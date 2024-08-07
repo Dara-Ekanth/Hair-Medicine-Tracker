@@ -81,7 +81,7 @@ def add_medicine():
 @app.route('/')
 @login_required
 def index():
-    medicines = Medicine.query.filter_by(user_id=current_user.id).all()
+    medicines = Medicine.query.filter_by(user_id=current_user.id).order_by(Medicine.date_taken.asc())
     return render_template('index.html', medicines=medicines)
 
 @app.errorhandler(404)
@@ -185,6 +185,21 @@ def delete_medicine(id):
     flash('Medicine entry deleted successfully!', 'success')
     return redirect(url_for('index'))
 
+@app.route('/update/medicine/<int:id>', methods=['POST'])
+@login_required
+def update_medicine(id):
+    medicine = Medicine.query.get_or_404(id)
+    if medicine.user_id != current_user.id:
+        flash('You do not have permission to delete this medicine.', 'danger')
+        return redirect(url_for('index'))
+    if request.method == 'POST':
+        medicine.date_taken = request.form.get("date_taken")
+        medicine.liquid_color = request.form.get("liquid_color")
+        medicine.tablet_color = request.form.get("tablet_color")
+        medicine.comments = request.form.get("comments")
+        db.session.commit()
+        flash('Medicine entry updated successfully!', 'success')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     with app.app_context():
